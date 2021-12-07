@@ -4,17 +4,14 @@ const ProductoService = require('../services/productService');
 const socketController = async(socket = new Socket(), io) => {
 
     socket.on('product-save', async (data) => {
-        
         const productoService = new ProductoService(data);
         io.emit('producto-creado', productoService);
         await productoService.crearProducto();
-
     });
 
     socket.on('product-update', async (data) => {
         const productoService = new ProductoService(data);
         const productoActualizado = await productoService.actualizarUno(data);
-        console.log("socket-controller",productoActualizado)
         io.emit('producto-newUpdate', productoActualizado);
     })
 }
