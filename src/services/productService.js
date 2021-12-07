@@ -20,7 +20,6 @@ class ProductoService {
                 codigo: this.codigo
             }
             const producto = new Product(data);
-            console.log(producto);
             const resp = await producto.save();
             return resp;
         } catch (error) {
@@ -31,7 +30,7 @@ class ProductoService {
     async actualizarUno(data) {
 
         try {
-            const filter = { name: Number(data.codigo) };
+            const filter = { codigo: Number(data.codigo) };
             const buscar = await Product.findOne(filter);
             const id = buscar._id;
             const actualizar = await Product.findByIdAndUpdate(id, data, {new: true});
